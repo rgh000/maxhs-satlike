@@ -928,7 +928,7 @@ int* Satlike::continue_from_init_solution(vector<int> init_solution,
                                           Wcnf* formula,
                                           int* solver_stage) {
   build_instance_from_maxhs(formula);
-  local_search_for_bmo(init_solution, solver_stage);
+  local_search_for_me(init_solution, solver_stage);
   
   return best_soln;
 }

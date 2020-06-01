@@ -2334,6 +2334,7 @@ bool MaxSolver::BLitOrderLt::operator() (const Lit l1, const Lit l2) const {
 }
 
 void MaxSolver::convertModelToSatlikeFormat(std::vector<int> &Satlike_model) {
+  Satlike_model.push_back(-1);
   for(int i = 0; i < theWcnf->nVars(); i++) {
     if (satsolver->modelValue(i) == l_True) {
       Satlike_model.push_back(1);
