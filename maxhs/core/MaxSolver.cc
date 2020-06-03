@@ -36,8 +36,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "maxhs/ifaces/miniSatSolver.h"
 #include "maxhs/ifaces/GreedySolver.h"
 
-#include "satlike/basis_pms.h"
-#include "satlike/pms.h"
+//#include "satlike/basis_pms.h"
+//#include "satlike/pms.h"
 
 #ifdef GLUCOSE
 #include "glucose/utils/System.h"

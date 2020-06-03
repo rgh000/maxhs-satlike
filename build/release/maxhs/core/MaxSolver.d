@@ -12,5 +12,4 @@ build/release/maxhs/core/MaxSolver.o: maxhs/core/MaxSolver.cc \
  /w/63/fbacchus/CPLEX_Studio1210/cplex/include/ilcplex/cpxconst.h \
  /w/63/fbacchus/CPLEX_Studio1210/cplex/include/ilcplex/cplexl.h \
  maxhs/utils/Params.h maxhs/core/Assumptions.h satlike/basis_pms.h \
- satlike/../maxhs/core/MaxSolver.h satlike/../maxhs/core/Wcnf.h \
- satlike/pms.h satlike/basis_pms.h
+ satlike/../maxhs/core/MaxSolver.h satlike/../maxhs/core/Wcnf.h
