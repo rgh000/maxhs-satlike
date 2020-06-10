@@ -36,8 +36,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "maxhs/ifaces/miniSatSolver.h"
 #include "maxhs/ifaces/GreedySolver.h"
 
-//#include "satlike/basis_pms.h"
-//#include "satlike/pms.h"
+#include "satlike/basis_pms.h"
+#include "satlike/pms.h"
 
 #ifdef GLUCOSE
 #include "glucose/utils/System.h"
@@ -2058,10 +2058,10 @@ void MaxSolver::setUBModel() {
   for(size_t i = 0; i < theWcnf->nSofts(); i++)
     UBmodelSofts[i] = tmpModelSofts[i];*/
   haveUBModel = true;
-  for (unsigned i = 0; i < UBmodel.size(); i++) {
-    if (newmodel[i] == 1) {
+  for (int i = 0; i < theWcnf->nVars(); i++) {
+    if (newmodel[i+1] == 1) {
       UBmodel[i] = l_True;
-    } else if (newmodel[i] == 0) {
+    } else if (newmodel[i+1] == 0) {
       UBmodel[i] = l_False;
     } else {
       assert(0 && "Undef variable found in model");
@@ -2115,7 +2115,7 @@ Weight MaxSolver::getSatClsWt_aftersatlike() {
     //calling theWcnf->softs() avoids copying soft clauses.
     for(auto ell : theWcnf->softs()[i])
       //if(satsolver->modelValue(ell) == l_True) {
-      if(newmodel[var(ell)] == 1) {
+      if(!sign(ell) && newmodel[var(ell) + 1] == 1 || sign(ell) && newmodel[var(ell) + 1] == 0) {
         is_sat = true;
         break;
       }

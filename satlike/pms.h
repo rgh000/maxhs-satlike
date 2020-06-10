@@ -875,7 +875,7 @@ void Satlike::myflip(int flipvar) {
       } else if (sat_count[c] == 1)  // sat_count from 0 to 1
       {
         sat_var[c] = flipvar;  // record the only true lit's var
-        if (org_clause_weight[c] == top_clause_weight) printf("ERROR! hard clause was unsat\n");
+        if (org_clause_weight[c] == top_clause_weight) printf("c ERROR! hard clause was unsat\n");
         for (lit* p = clause_c; (v = p->var_num) != 0; p++) {
           score[v] -= clause_weight[c];
         }
@@ -903,7 +903,7 @@ void Satlike::myflip(int flipvar) {
         for (lit* p = clause_c; (v = p->var_num) != 0; p++) {
           score[v] += clause_weight[c];
         }
-        if (org_clause_weight[c] == top_clause_weight) printf("ERROR! flipped a critical\n"); //can't happen
+        if (org_clause_weight[c] == top_clause_weight) printf("c ERROR! flipped a critical\n"); //can't happen
         unsat(c);
       }  // end else if
     }    // end else
@@ -951,21 +951,25 @@ void Satlike::local_search_for_bmo(vector<int>& init_solution, int* solver_stage
   settings();
 
   init(init_solution);
-  printf("goodvar_stack_fill_pointer: %d\n", goodvar_stack_fill_pointer);
+  printf("c goodvar_stack_fill_pointer: %d\n", goodvar_stack_fill_pointer);
 
   for (step = 1; step < max_flips; ++step) {
     if (hard_unsat_nb == 0 && (soft_unsat_weight < opt_unsat_weight || best_soln_feasible == 0)) {
       if (best_soln_feasible == 0) {
         best_soln_feasible = 1;
         opt_unsat_weight = soft_unsat_weight;
-        cout << "o " << opt_unsat_weight << " from satlike" << endl;
+        cout << "o " << opt_unsat_weight << endl;
+        cout << "c from satlike" << endl;
+        cout << "c time is " << get_runtime() << endl;
         *solver_stage = 1;
         for (int v = 1; v <= num_vars; ++v) best_soln[v] = cur_soln[v];
         break;
       }
       if (soft_unsat_weight < top_clause_weight) {
         opt_unsat_weight = soft_unsat_weight;
-        cout << "o " << opt_unsat_weight << " from satlike" << endl;
+        cout << "o " << opt_unsat_weight << endl;
+        cout << "c from satlike" << endl;
+        cout << "c time is " << get_runtime() << endl;
         *solver_stage = 1;
         for (int v = 1; v <= num_vars; ++v) best_soln[v] = cur_soln[v];
         if (opt_unsat_weight == 0) {
@@ -1001,7 +1005,7 @@ void Satlike::local_search_for_me(vector<int>& init_solution, int* solver_stage)
   settings();
   
   myinit(init_solution);
-  printf("goodvar_stack_fill_pointer:%d\n", goodvar_stack_fill_pointer);
+  printf("c goodvar_stack_fill_pointer:%d\n", goodvar_stack_fill_pointer);
   
   for (step = 1; step < max_flips; ++step) {
     if (hard_unsat_nb == 0 && (soft_unsat_weight < opt_unsat_weight || best_soln_feasible == 0)) {
@@ -1015,7 +1019,9 @@ void Satlike::local_search_for_me(vector<int>& init_solution, int* solver_stage)
       }*/
       if (soft_unsat_weight < top_clause_weight) {
         opt_unsat_weight = soft_unsat_weight;
-        cout << "o " << opt_unsat_weight << " (from satlike)" << endl;
+        cout << "o " << opt_unsat_weight << endl;
+        cout << "c from satlike" << endl;
+        cout << "c time is " << get_runtime() << endl;
         *solver_stage = 1;
         for (int v = 1; v <= num_vars; ++v) best_soln[v] = cur_soln[v];
         if (opt_unsat_weight == 0) {
@@ -1041,7 +1047,7 @@ void Satlike::local_search_for_me(vector<int>& init_solution, int* solver_stage)
     }
     
     if (goodvar_stack_fill_pointer == 0) {
-      printf("No good variables left\n");
+      printf("c No good variables left\n");
       return;
     }
     int flipvar = my_pick_var();
